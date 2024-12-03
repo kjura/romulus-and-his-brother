@@ -1,3 +1,4 @@
+use core::num;
 use std::{collections::HashMap, hash::Hash};
 
 fn roman_as_num(roman: &str) -> u64 {
@@ -8,7 +9,7 @@ fn roman_as_num(roman: &str) -> u64 {
 
 fn get_digits(number: i32) -> Vec<i32> {
 
-    let mut a:i32 = 1460;
+    let mut a:i32 = number;
     let b:i32 = 10;
     let mut container: Vec<i32> = Vec::new();
 
@@ -39,9 +40,10 @@ fn main() {
     // );
 
     // let numerals_to_roman: HashMap<i32, &str> = roman_to_numerals.iter().map(| (k, v) | (*v, *k)).collect();
+    // 3999 will be max for our purposes
 
 
-    let liczba = 1460;
+    let liczba = 2469;
     let container = get_digits(liczba);
     let mut values: Vec<i32> = Vec::new();
 
