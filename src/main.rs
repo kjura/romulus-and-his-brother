@@ -1,5 +1,5 @@
 use core::num;
-use std::{collections::HashMap, hash::Hash};
+use std::{collections::HashMap, error, hash::Hash};
 
 fn roman_as_num(roman: &str) -> u64 {
     todo!("transform the string roman numeral into an integer")
@@ -27,36 +27,35 @@ fn get_digits(number: i32) -> Vec<i32> {
 fn main() {
 
 
-    // let roman_to_numerals = HashMap::from(
-    //     [
-    //         ("I", 1),
-    //         ("V", 5),
-    //         ("X", 10),
-    //         ("L", 50),
-    //         ("C", 100),
-    //         ("D", 500),
-    //         ("M", 1000)
-    //     ]
-    // );
+    let roman_to_numerals = HashMap::from(
+        [
+            (String::from("I"), 1),
+            (String::from("V"), 5),
+            (String::from("X"), 10),
+            (String::from("L"), 50),
+            (String::from("C"), 100),
+            (String::from("D"), 500),
+            (String::from("M"), 1000)
+        ]
+    );
 
-    // let numerals_to_roman: HashMap<i32, &str> = roman_to_numerals.iter().map(| (k, v) | (*v, *k)).collect();
+    let numerals_to_roman: HashMap<i32, String> = roman_to_numerals.iter().map(| (k, v) | (*v, k.clone())).collect();
     // 3999 will be max for our purposes
 
 
-    let liczba = 2469;
-    let container = get_digits(liczba);
-    let mut values: Vec<i32> = Vec::new();
+    let liczba = "XIV";
+
+    let odwrocona_liczba = liczba.chars().rev().collect::<String>();
+    // potrzebuję iterować po odwróconym stringu na char'ach, i podmieniać je z hashmapy na liczby
+    // e.g XIV staje sie [V, I, X] => [5, 1, 10] 
 
 
-    let mut multiplier = 1;
-    for i in &container {
-        values.push((i * multiplier));
-        multiplier *= 10;
-    }
+    let kolekcja: Vec<i32> = odwrocona_liczba.chars().map(|c| roman_to_numerals.get(&c.to_string()).cloned().unwrap()).collect();
 
-    println!("{:#?}", container);
-    println!("{:#?}", values);
+    println!("{:#?}", odwrocona_liczba);
 
+    println!("{:#?}", kolekcja)
 
+    // println!("{:#?}", dupa)
 
 }
