@@ -1,4 +1,5 @@
 use core::num;
+use std::cmp;
 use std::{collections::HashMap, error, hash::Hash};
 
 fn roman_as_num(roman: &str) -> u64 {
@@ -43,7 +44,7 @@ fn main() {
     // 3999 will be max for our purposes
 
 
-    let liczba = "XIV";
+    let liczba = "CCCXXIV";
 
     let odwrocona_liczba = liczba.chars().rev().collect::<String>();
     // potrzebuję iterować po odwróconym stringu na char'ach, i podmieniać je z hashmapy na liczby
@@ -52,10 +53,35 @@ fn main() {
 
     let kolekcja: Vec<i32> = odwrocona_liczba.chars().map(|c| roman_to_numerals.get(&c.to_string()).cloned().unwrap()).collect();
 
-    println!("{:#?}", odwrocona_liczba);
 
-    println!("{:#?}", kolekcja)
+    let mut total = 0;
+    let mut max = 0;
+
+    for i in kolekcja {
+        
+        let calculated_max = cmp::max(i, max);
+        if i >= calculated_max {
+            total += i;
+            max = i;
+        }
+        else {
+            total -= i;
+        }
+    }
+
+    println!("{}", total)
+
+
+    
+
+    // println!("{:#?}", odwrocona_liczba);
+
+    // println!("{:#?}", kolekcja)
 
     // println!("{:#?}", dupa)
+
+    // 5 1 10 ==> 
+    // max(0, 5)=5 => 5 >= 5 => 0 + 5 = 5
+    // max(5, 1)= 5 => 1 < 5 => 5 - 1
 
 }
