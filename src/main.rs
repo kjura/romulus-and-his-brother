@@ -5,18 +5,17 @@ fn roman_as_num(roman: &str) -> u64 {
 
     let roman_to_numerals = HashMap::from(
         [
-            (String::from("I"), 1u64),
-            (String::from("V"), 5),
-            (String::from("X"), 10),
-            (String::from("L"), 50),
-            (String::from("C"), 100),
-            (String::from("D"), 500),
-            (String::from("M"), 1000)
+            ('I', 1u64),
+            ('V', 5),
+            ('X', 10), 
+            ('L', 50),
+            ('C', 100),
+            ('D', 500),
+            ('M', 1000)
         ]
     );
 
-    let reverse_roman = roman.chars().rev().collect::<String>();
-    let reverse_roman_collection_arabic: Vec<u64> = reverse_roman.chars().map(|c| roman_to_numerals.get(&c.to_string()).cloned().unwrap()).collect();
+    let reverse_roman_collection_arabic: Vec<u64> = roman.chars().rev().map(|c| roman_to_numerals.get(&c).cloned().unwrap()).collect();
 
     let mut total = 0;
     let mut max = 0;
@@ -43,5 +42,9 @@ fn main() {
 
     let result = roman_as_num("XLIV");
     println!("{}", result)
+
+    // [5, 1, 50, 10] --> 0 + 5 - 1 + 50 - 10 = 44
+    // acc = 0
+    // if max( if max(0, 5) >= 5 { acc + 5 } else { acc - 5 } ) >= 1 { acc + 1 } else { acc - 1 }
 
 }
